@@ -1,0 +1,15 @@
+# Default
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+# 기본적으로 활성화할 profile을 local로 설정
+spring:
+  application:
+    name: untitled_01_BE
+  profiles:
+    active:
+      - local
