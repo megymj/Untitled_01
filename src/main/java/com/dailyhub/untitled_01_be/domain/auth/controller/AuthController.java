@@ -1,8 +1,10 @@
 package com.dailyhub.untitled_01_be.domain.auth.controller;
 
 import com.dailyhub.untitled_01_be.domain.auth.dto.request.EmailRequest;
+import com.dailyhub.untitled_01_be.domain.auth.dto.request.LoginRequest;
 import com.dailyhub.untitled_01_be.domain.auth.service.AuthService;
 import com.dailyhub.untitled_01_be.domain.user.domain.Status;
+import com.dailyhub.untitled_01_be.domain.user.domain.User;
 import com.dailyhub.untitled_01_be.global.common.ApiResponse;
 import com.dailyhub.untitled_01_be.global.exception.ErrorCode;
 import com.dailyhub.untitled_01_be.global.exception.SuccessCode;
@@ -46,6 +48,22 @@ public class AuthController {
             }
             return ResponseEntity.ok(ApiResponse.success(SuccessCode.AUTH_EMAIL_EXIST_AND_ACTIVE, null));
         }
+    }
+
+    /**
+     * 2. 로그인
+     */
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<User>> login(@RequestBody LoginRequest loginRequest) {
+        User user = authService.login(loginRequest);
+
+        if (user == null) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error(ErrorCode.AUTH_LOGIN_FAILED, null));
+        }
+
+        return ResponseEntity.ok(ApiResponse.success(SuccessCode.AUTH_LOGIN_SUCCESS, user));
     }
 
 }
