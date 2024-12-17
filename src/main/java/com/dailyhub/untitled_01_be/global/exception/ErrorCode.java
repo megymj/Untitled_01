@@ -19,7 +19,8 @@ public enum ErrorCode {
     AUTH_EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "CE01_AUTH", "사용자를 찾을 수 없습니다."),
     AUTH_EMAIL_INACTIVE(HttpStatus.UNAUTHORIZED, "CE02_AUTH", "비활성화된 사용자입니다. 관리자에게 문의하세요."),
 
-    AUTH_LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "CE03_AUTH", "로그인에 실패했습니다.");
+
+    AUTH_LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "CE01_LOGIN", "로그인에 실패했습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
