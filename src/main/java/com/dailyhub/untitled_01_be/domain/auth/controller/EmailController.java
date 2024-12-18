@@ -1,7 +1,7 @@
 package com.dailyhub.untitled_01_be.domain.auth.controller;
 
 import com.dailyhub.untitled_01_be.domain.auth.dto.request.EmailRequest;
-import com.dailyhub.untitled_01_be.domain.auth.service.MailService;
+import com.dailyhub.untitled_01_be.domain.auth.service.EmailService;
 import com.dailyhub.untitled_01_be.global.common.ApiResponse;
 import com.dailyhub.untitled_01_be.global.exception.SuccessCode;
 import lombok.RequiredArgsConstructor;
@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/mail")
-public class MailController {
+public class EmailController {
 
-    private final MailService mailService;
+    private final EmailService emailService;
 
     @PostMapping("/auth-code")
     public ResponseEntity<ApiResponse<Object>> sendAuthCode(@RequestBody EmailRequest emailRequest) {
         // 인증 코드 생성
-        String authCode = mailService.generateAuthCode();
+        String authCode = emailService.generateAuthCode();
 
         // todo.. 추후 이메일 형식 검증 로직 구현 필요
         String email = emailRequest.getEmail();
 
         // 이메일 전송
-        mailService.sendAuthCode(email, authCode);
+        emailService.sendAuthCode(email, authCode);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success(SuccessCode.AUTH_SEND_CODE_SUCCESS, authCode));
+                .body(ApiResponse.success(SuccessCode.AUTH_SEND_CODE_SUCCESS, null));
     }
 }
